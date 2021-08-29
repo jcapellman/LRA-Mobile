@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace LRA
@@ -13,6 +8,18 @@ namespace LRA
         public MainPage()
         {
             InitializeComponent();
+
+            wvMain.Navigating += WvMain_Navigating;
+        }
+
+        private void WvMain_Navigating(object sender, WebNavigatingEventArgs e)
+        {
+            if (e.Url.StartsWith("mailto") || e.Url.StartsWith("tel"))
+            {
+                _ = Launcher.OpenAsync(e.Url);
+
+                e.Cancel = true;
+            }
         }
     }
 }
