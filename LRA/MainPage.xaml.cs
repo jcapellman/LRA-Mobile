@@ -1,4 +1,6 @@
-﻿using Xamarin.Essentials;
+﻿using System;
+
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace LRA
@@ -12,11 +14,20 @@ namespace LRA
             wvMain.Navigating += WvMain_Navigating;
         }
 
-        private void WvMain_Navigating(object sender, WebNavigatingEventArgs e)
+        private async void WvMain_Navigating(object sender, WebNavigatingEventArgs e)
         {
             if (e.Url.StartsWith("mailto") || e.Url.StartsWith("tel"))
             {
                 _ = Launcher.OpenAsync(e.Url);
+
+                e.Cancel = true;
+            }
+
+            if (e.Url.StartsWith("geo"))
+            {
+                string[] splitArr = e.Url.Replace("geo:", "").Split(',');
+
+                await Map.OpenAsync(new Location(Convert.ToDouble(splitArr[0]), Convert.ToDouble(splitArr[1])));
 
                 e.Cancel = true;
             }
