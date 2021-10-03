@@ -31,6 +31,13 @@ namespace LRA
 
                 e.Cancel = true;
             }
+
+            if (e.Url.StartsWith("https://www.facebook.com"))
+            {
+                _ = Launcher.OpenAsync(e.Url);
+
+                e.Cancel = true;
+            }
         }
     }
 }
