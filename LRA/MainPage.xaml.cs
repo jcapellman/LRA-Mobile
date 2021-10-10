@@ -34,7 +34,7 @@ namespace LRA
 
             if (e.Url.StartsWith("https://www.facebook.com"))
             {
-                _ = Launcher.OpenAsync(e.Url);
+                await Xamarin.Essentials.Launcher.OpenAsync("fb://page/880109982002154");
 
                 e.Cancel = true;
             }
